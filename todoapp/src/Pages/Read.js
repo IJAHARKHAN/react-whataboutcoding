@@ -8,8 +8,6 @@ import axios from 'axios'
 function Read() {
  const [getList, setGetList] = useState([])
 
-//  console.log('getList', getList)
-
     let navigate = useNavigate()
 
     let getData = () => {
@@ -26,9 +24,9 @@ function Read() {
     }
 
 
-    let upadateListItem = (e)=>{
-        console.log('event', e)
-        // navigate('/update')
+    let handleUpdate = (id)=>{
+        console.log('handleUpdate', id)
+        navigate('/update?id=' + id)
     }
 
     let handleDelete = (id) => {
@@ -36,8 +34,7 @@ function Read() {
         if (window.confirm("Do you really want to delete?")) {
             let url = `https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis/${id}`;
             let method = 'DELETE';
-            let headers = 'Access-Control-Allow-Origin';
-            // let headers = '';
+            let headers = 'Access-Control-Allow-Origin';            
             let data = {}
             axios({url, method, headers, data}) 
             .then((respose) =>{
@@ -92,7 +89,7 @@ function Read() {
                     <td>{list.email}</td>                
                     <td>
                     <div className="d-flex gap-3 align-items-center">
-                    <i className="bi bi-pencil-square pointer fs-4 text-success pointer" title='Update List Item' onClick={(e) => {upadateListItem(e)}}></i>    
+                    <i className="bi bi-pencil-square pointer fs-4 text-success pointer" title='Update List Item' onClick={() => {handleUpdate(list.id)}}></i>    
                     <i className="bi bi-x-square fs-4 text-danger pointer" title='Delete List Item' onClick={() => handleDelete(list.id)}></i>
                     </div>    
                     </td>                

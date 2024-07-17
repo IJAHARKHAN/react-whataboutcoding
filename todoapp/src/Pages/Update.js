@@ -1,8 +1,32 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import {React, useEffect } from 'react'
+import { Link, useLocation  } from 'react-router-dom'
+import axios from 'axios' 
+
+function Update() {    
+    const location = useLocation();
+    
+ useEffect(() => {
+
+    const queryParams = new URLSearchParams(location.search);
+    const id = queryParams.get('id');
+    
+    // console.log('ID from URL:', id);
+   
+     let url = `https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis/${id}`;   
+            let method = 'GET';
+            let headers = 'Access-Control-Allow-Origin';
+            // let headers = '';
+            let data = {}
+            axios({url, method, headers, data}) 
+            .then((respose) =>{
+                console.log('getUpdateId', respose.data);            
+                     
+            })
+ }, [location])
 
 
-function Update() {
+
+
   return (
     <>   
    
