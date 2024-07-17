@@ -14,22 +14,31 @@ function Create() {
 const [name, setName] = useState('')
 const [email, setEmail] = useState('')
 
-let handleSubmit = (e)=>{
-  e.preventDefault();
-  // console.log('handleSubmit', e)
-  let url = 'https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis';
-  let method = 'POST';
-  let headers = 'Access-Control-Allow-Origin'
-  let data = {
-    name: name,
-    email: email
-  }
+let handleSubmit = async (e)=>{
+    e.preventDefault();
+    try {
+      await axios.post(`https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis`,{
+        name: name,
+        email: email
+      });
+      navigate('/read');      
+    } catch (error) {
+      console.error('Error post data:', error);
+    }
+  
+  // let url = 'https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis';
+  // let method = 'POST';
+  // let headers = 'Access-Control-Allow-Origin'
+  // let data = {
+  //   name: name,
+  //   email: email
+  // }
 
-  axios({url, method, headers, data})
-  .then((respose) =>{
+  // axios({url, method, headers, data})
+  // .then((respose) =>{
   // console.log('respose', respose);
-  navigate('/read')
-  }) 
+  // navigate('/read')
+  // }) 
   
 }
 

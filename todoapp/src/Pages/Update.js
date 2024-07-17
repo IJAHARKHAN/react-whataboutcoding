@@ -1,27 +1,47 @@
-import {React, useEffect } from 'react'
+import {React, useEffect, useState } from 'react'
 import { Link, useLocation  } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios' 
 
 function Update() {    
-    const location = useLocation();
-    
- useEffect(() => {
+    let navigate = useNavigate()  
 
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    
+
+    const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const id = queryParams.get('id');
     
     // console.log('ID from URL:', id);
    
-     let url = `https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis/${id}`;   
-            let method = 'GET';
-            let headers = 'Access-Control-Allow-Origin';
-            // let headers = '';
-            let data = {}
-            axios({url, method, headers, data}) 
-            .then((respose) =>{
-                console.log('getUpdateId', respose.data);            
-                     
-            })
+    const fetchData = async () => {
+        try {
+          const response = await axios.get(`https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis/${id}`);        
+          setName(response.data.name);
+          setEmail(response.data.email);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+
+
+    let handleUpdate = async (e) =>{
+        e.preventDefault();
+        try {
+            await axios.put(`https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis/${id}`, {
+              name: name,
+              email: email,
+            });
+            navigate('/read'); // Redirect to the list page after successful update
+          } catch (error) {
+            console.error('Error updating data:', error);
+          }
+    }
+    
+ useEffect(() => {  
+      fetchData();
  }, [location])
 
 
@@ -47,15 +67,15 @@ function Update() {
               <form>
               <div className="mb-3">
                 <label htmlFor="Name" className="form-label">Name</label>
-                <input type="text" className="form-control" id="Name" placeholder='Enter Your Name...'/>
+                <input type="text" className="form-control" id="Name" placeholder='Enter Your Name...' value={name} onChange={(e) => setName(e.target.value)}/>
               </div>
 
               <div className="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                <input type="email" className="form-control" id="exampleInputEmail1" placeholder='Ente Your Email...'/>                
+                <input type="email" className="form-control" id="exampleInputEmail1" placeholder='Ente Your Email...' value={email} onChange={(e) => setEmail(e.target.value)}/>                
               </div>
 
-              <button type="submit" className="btn btn-primary">Update</button> <Link to="/read" className="btn btn-primary">Go to List</Link>
+              <button type="submit" className="btn btn-primary" onClick={handleUpdate}>Update</button> <Link to="/read" className="btn btn-primary">Go to List</Link>
             </form>
           </div>
         </div>

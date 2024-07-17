@@ -10,37 +10,55 @@ function Read() {
 
     let navigate = useNavigate()
 
-    let getData = () => {
-        let url = 'https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis';
-        let method = 'GET';
-        let headers = 'Access-Control-Allow-Origin';
-        let data = {}
-        axios({url, method, headers, data}) 
-        .then((respose) =>{
-            // console.log('readRespose', respose.data);
-            setGetList(respose.data) 
+    let getData = async () => {
+        try {
+            const response = await axios.get(`https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis`);        
+            setGetList(response.data) 
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+
+        // let url = 'https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis';
+        // let method = 'GET';
+        // let headers = 'Access-Control-Allow-Origin';
+        // let data = {}
+        // axios({url, method, headers, data}) 
+        // .then((respose) =>{
+        //     // console.log('readRespose', respose.data);
+        //     setGetList(respose.data) 
         
-        })  
+        // })  
+
     }
 
 
-    let handleUpdate = (id)=>{
-        console.log('handleUpdate', id)
+    let handleEdit = (id)=>{       
         navigate('/update?id=' + id)
     }
 
-    let handleDelete = (id) => {
+    let handleDelete = async (id) => {
         // console.log('handleDelete', id)
         if (window.confirm("Do you really want to delete?")) {
-            let url = `https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis/${id}`;
-            let method = 'DELETE';
-            let headers = 'Access-Control-Allow-Origin';            
-            let data = {}
-            axios({url, method, headers, data}) 
-            .then((respose) =>{
-                //console.log('readRespose', respose.data);            
-                getData()        
-            })
+
+            try {
+                await axios.delete(`https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis/${id}`);  
+                getData();
+              } catch (error) {
+                console.error('Error fetching data:', error);
+              }
+
+
+            // let url = `https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis/${id}`;
+            // let method = 'DELETE';
+            // let headers = 'Access-Control-Allow-Origin';            
+            // let data = {}
+            // axios({url, method, headers, data}) 
+            // .then((respose) =>{
+            //     console.log('readRespose', respose.data);            
+            //     getData()        
+            // })
+
+
           }
         
     }
@@ -89,7 +107,7 @@ function Read() {
                     <td>{list.email}</td>                
                     <td>
                     <div className="d-flex gap-3 align-items-center">
-                    <i className="bi bi-pencil-square pointer fs-4 text-success pointer" title='Update List Item' onClick={() => {handleUpdate(list.id)}}></i>    
+                    <i className="bi bi-pencil-square pointer fs-4 text-success pointer" title='Update List Item' onClick={() => {handleEdit(list.id)}}></i>    
                     <i className="bi bi-x-square fs-4 text-danger pointer" title='Delete List Item' onClick={() => handleDelete(list.id)}></i>
                     </div>    
                     </td>                
