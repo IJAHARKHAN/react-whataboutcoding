@@ -14,6 +14,16 @@ function Create() {
 const [name, setName] = useState('')
 const [email, setEmail] = useState('')
 const [message, setMessage] = useState('')
+const [theme, setTheme] = useState('light'); // Initial theme state
+
+ let handleDarkMode = (e) =>{
+  const isChecked = e.target.checked; 
+if (isChecked) {
+  setTheme('dark'); // Change theme to dark
+} else {
+  setTheme('light'); // Change theme to light
+}
+}
 
 let handleSubmit = async (e)=>{
     e.preventDefault();
@@ -53,12 +63,12 @@ else{
   return (
     <> 
     
-     <div className="shadow p-3 mb-5 bg-body-tertiary rounded w-50 mx-auto mt-4" data-bs-theme="light"> 
-      <div className="d-flex justify-content-between">
+     <div className="shadow p-3 mb-5 bg-body-tertiary rounded w-50 mx-auto mt-4" data-bs-theme={theme}> 
+     <div className={`d-flex justify-content-between color ${theme}`}>
       <h3>Create </h3> 
       <div className="form-check form-switch">        
         <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Enable Dark Mode</label>
-        <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"/>  
+        <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"  onChange={handleDarkMode}/>  
     </div>
       </div>
         
@@ -66,7 +76,7 @@ else{
 
         <div className="row">
           <div className="col-12 mt-1">
-              <form>
+              <form className={`form-label color ${theme}`}>
               <div className="mb-3">
                 <label htmlFor="Name" className="form-label">Name</label>
                 <input type="text" className="form-control" id="Name" placeholder='Enter Your Name...' required onChange={(e) => setName(e.target.value)}/>

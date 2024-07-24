@@ -11,14 +11,12 @@ function Read() {
  const [theme, setTheme] = useState('light'); // Initial theme state
 
  let handleDarkMode = (e) =>{
-  const isChecked = e.target.checked;
-  // console.log('handleDarkMode', isChecked)
+  const isChecked = e.target.checked; 
 if (isChecked) {
   setTheme('dark'); // Change theme to dark
 } else {
   setTheme('light'); // Change theme to light
 }
-
 }
 
 //  console.log('searchInput', searchInput)
