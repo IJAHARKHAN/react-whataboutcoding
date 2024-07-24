@@ -8,6 +8,18 @@ import axios from 'axios'
 function Read() {
  const [getList, setGetList] = useState([])
  const [searchInput, setSearchInput] = useState('')
+ const [theme, setTheme] = useState('light'); // Initial theme state
+
+ let handleDarkMode = (e) =>{
+  console.log('handleDarkMode', e.target)
+  const isChecked = e.target.checked;
+if (isChecked) {
+  setTheme('dark'); // Change theme to dark
+} else {
+  setTheme('light'); // Change theme to light
+}
+
+}
 
 //  console.log('searchInput', searchInput)
 
@@ -66,6 +78,9 @@ function Read() {
         
     }
 
+
+    
+
  useEffect(() => {
     getData()
  }, [])
@@ -75,15 +90,15 @@ function Read() {
     <>   
    
     
-     <div className="shadow p-3 mb-5 bg-body-tertiary rounded w-50 mx-auto mt-4"> 
+     <div className="shadow p-3 mb-5 bg-body-tertiary rounded w-50 mx-auto mt-4 bg-black_" data-bs-theme={theme}> 
      
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between" data-bs-theme={theme}>
       <h3>List</h3> 
       <div><Link to="/" className="btn btn-primary btn-sm">Go to Create</Link></div>
       
       <div className="form-check form-switch">        
         <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Enable Dark Mode</label>
-        <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"/>  
+        <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={handleDarkMode}/>  
        </div>
       </div>
         

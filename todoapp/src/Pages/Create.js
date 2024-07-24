@@ -53,7 +53,7 @@ else{
   return (
     <> 
     
-     <div className="shadow p-3 mb-5 bg-body-tertiary rounded w-50 mx-auto mt-4"> 
+     <div className="shadow p-3 mb-5 bg-body-tertiary rounded w-50 mx-auto mt-4" data-bs-theme="light"> 
       <div className="d-flex justify-content-between">
       <h3>Create </h3> 
       <div className="form-check form-switch">        
