@@ -7,6 +7,9 @@ import axios from 'axios'
 
 function Read() {
  const [getList, setGetList] = useState([])
+ const [searchInput, setSearchInput] = useState('')
+
+//  console.log('searchInput', searchInput)
 
     let navigate = useNavigate()
 
@@ -84,8 +87,15 @@ function Read() {
        </div>
       </div>
         
-        <hr/>
+        <hr className='mb-2'/>
 
+<div className="row">
+  <div className="col-12">
+    <div className="d-flex justify-content-end mb-2">
+      <input type="search" name="" id="" className='form-control form-control-sm w-25' placeholder='Search List Item...' onChange={(e) => setSearchInput(e.target.value)}/>
+    </div>
+  </div>
+</div>
         <div className="row">
           <div className="col-12 mt-1" style={{overflow:'auto', maxHeight:'calc(100vh - 185px)'}}>
          <table className="table table-sm">
@@ -100,7 +110,10 @@ function Read() {
             </thead>
             <tbody>
 
-                { getList && getList.map((list, index) => (
+                { getList && getList.filter((searchKey) =>
+                {
+                  return (searchKey.name.toLowerCase().includes(searchInput) || searchKey.email.toLowerCase().includes(searchInput))
+                }).map((list, index) => (
                     <tr key={list.id}>
                     <th scope="row">{index + 1 }</th>
                     <td>{list.name}</td>
