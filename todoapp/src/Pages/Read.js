@@ -110,10 +110,8 @@ function Read() {
             </thead>
             <tbody>
 
-                { getList && getList.filter((searchKey) =>
-                {
-                  return (searchKey.name.toLowerCase().includes(searchInput) || searchKey.email.toLowerCase().includes(searchInput))
-                }).map((list, index) => (
+                { getList && getList.filter((searchKey) => (searchKey.name.toLowerCase().includes(searchInput) || searchKey.email.toLowerCase().includes(searchInput))).map((list, index) => 
+                (
                     <tr key={list.id}>
                     <th scope="row">{index + 1 }</th>
                     <td>{list.name}</td>
