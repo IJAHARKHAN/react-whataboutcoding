@@ -11,8 +11,8 @@ function Read() {
  const [theme, setTheme] = useState('light'); // Initial theme state
 
  let handleDarkMode = (e) =>{
-  console.log('handleDarkMode', e.target)
   const isChecked = e.target.checked;
+  // console.log('handleDarkMode', isChecked)
 if (isChecked) {
   setTheme('dark'); // Change theme to dark
 } else {
@@ -92,7 +92,7 @@ if (isChecked) {
     
      <div className="shadow p-3 mb-5 bg-body-tertiary rounded w-50 mx-auto mt-4 bg-black_" data-bs-theme={theme}> 
      
-      <div className="d-flex justify-content-between" data-bs-theme={theme}>
+      <div className={`d-flex justify-content-between color ${theme}`}>
       <h3>List</h3> 
       <div><Link to="/" className="btn btn-primary btn-sm">Go to Create</Link></div>
       
