@@ -13,18 +13,26 @@ function Create() {
 
 const [name, setName] = useState('')
 const [email, setEmail] = useState('')
+const [message, setMessage] = useState('')
 
 let handleSubmit = async (e)=>{
     e.preventDefault();
-    try {
-      await axios.post(`https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis`,{
-        name: name,
-        email: email
-      });
-      navigate('/read');      
-    } catch (error) {
-      console.error('Error post data:', error);
-    }
+if(!name || !email){
+  setMessage('Please fill all required!')
+}
+else{
+  try {
+    await axios.post(`https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis`,{
+      name: name,
+      email: email
+    });
+    navigate('/read');      
+  } catch (error) {
+    console.error('Error post data:', error);
+  }
+}
+
+    
   
   // let url = 'https://6697b1c602f3150fb66e9da8.mockapi.io/crud-apis';
   // let method = 'POST';
@@ -69,7 +77,14 @@ let handleSubmit = async (e)=>{
                 <input type="email" className="form-control" id="exampleInputEmail1" placeholder='Ente Your Email...' required onChange={(e) => setEmail(e.target.value)}/>                
               </div>
 
+              <div>
+                <label htmlFor="exampleInputEmail1" className="form-label text-danger">{message}</label>                               
+              </div>
+
               <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+
+
+              
             </form>
           </div>
         </div>

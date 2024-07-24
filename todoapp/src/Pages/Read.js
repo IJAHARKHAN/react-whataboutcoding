@@ -92,7 +92,7 @@ function Read() {
 <div className="row">
   <div className="col-12">
     <div className="d-flex justify-content-end mb-2">
-      <input type="search" name="" id="" className='form-control form-control-sm w-25' placeholder='Search List Item...' onChange={(e) => setSearchInput(e.target.value)}/>
+      <input type="search" name="" id="" className='form-control form-control-sm w-25' placeholder='Search List Item...' onChange={(e) => setSearchInput(e.target.value.toLowerCase())}/>
     </div>
   </div>
 </div>
